@@ -7,9 +7,9 @@ import (
 	"flag"  //
 	"fmt"   //For Print
 	"io/ioutil"
-	"net/http"
-	"net/url"
-	"os"
+	"net/http"   //Get(utils.DIAGNOSTIC_URL + "/security?" + v.Encode()), http.Get(utils.DIAGNOSTIC_URL + "/bulletins/" + bulletin.Id)
+	"net/url"    //url.Values{}
+	"os"    
 	"os/signal"
 	"runtime"
 	"strconv"
@@ -18,11 +18,11 @@ import (
 	"time"
 
 	l4g "code.google.com/p/log4go"
-	"github.com/mattermost/platform/api"   // for api
-	"github.com/mattermost/platform/manualtesting"
-	"github.com/mattermost/platform/model"
-	"github.com/mattermost/platform/utils"
-	"github.com/mattermost/platform/web"
+	"github.com/mattermost/platform/api"   // for api,NewServer,InitApi,StartServer,StopServer
+	"github.com/mattermost/platform/manualtesting" //InitManualTesting
+	"github.com/mattermost/platform/model"  //for  CurrentVersion,BuildNumber,BuildDate,BuildHash,System,NewId,User,Team
+	"github.com/mattermost/platform/utils"   //LoadConfig,ConfigureCmdLineLog,FindConfigFile,Cfg.ServiceSettings,PROP_DIAGNOSTIC_ID,DIAGNOSTIC_URL,SendMail
+	"github.com/mattermost/platform/web" // for web,InitWeb
 )
 
 var flagCmdCreateTeam bool
@@ -97,7 +97,7 @@ func runSecurityAndDiagnosticsJobAndForget() {
 							<-api.Srv.Store.System().Save(systemId)
 						}
 
-						v := url.Values{}
+						v := url.Values{}    //设置url
 						v.Set(utils.PROP_DIAGNOSTIC_ID, id)
 						v.Set(utils.PROP_DIAGNOSTIC_BUILD, model.CurrentVersion+"."+model.BuildNumber)
 						v.Set(utils.PROP_DIAGNOSTIC_DATABASE, utils.Cfg.SqlSettings.DriverName)
