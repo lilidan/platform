@@ -4,8 +4,8 @@
 package main
 
 import (
-	"flag"
-	"fmt"
+	"flag"  //
+	"fmt"   //For Print
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -13,12 +13,12 @@ import (
 	"os/signal"
 	"runtime"
 	"strconv"
-	"strings"
+	"strings"  
 	"syscall"
 	"time"
 
 	l4g "code.google.com/p/log4go"
-	"github.com/mattermost/platform/api"
+	"github.com/mattermost/platform/api"   // for api
 	"github.com/mattermost/platform/manualtesting"
 	"github.com/mattermost/platform/model"
 	"github.com/mattermost/platform/utils"
